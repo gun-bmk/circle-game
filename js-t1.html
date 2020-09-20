@@ -1,19 +1,62 @@
 <html>
-    <body>
-        <h1>Hello</h1>
-        <h2>World</h2>
-        <h1 id="result"></h1>
-        <button onclick="countUp()">Count UP!</button>
-    </body>
-    <script>
-        let x = 5;
-        document.getElementById("result").innerHTML = x;
 
-        function countUp() {
-            console.log("countUp click !!!!");
-            x = x + 1;
-            document.getElementById("result").innerHTML = x;
+<body>
+    <h1>Hello</h1>
+    <h2>World</h2>
+
+    <input type="number" id="step" value="0" min="0">
+    <h1 id="result"></h1>
+    <button onclick="countUp()">Count UP!</button>
+    <!-- <button onclick="countDown()">Count Down!</button> -->
+    <button onclick="countDown()" id="countDown">Count Down!</button>
+    <button onclick="reset()">Reset!</button>
+
+</body>
+<script>
+    let initialNumber = 10;
+    let sum = 0 + initialNumber;
+    display(sum);
+
+    // function checkDisabled(){
+    //     document.getElementById("countDown").disabled = sum <= 0
+    // }
+
+    function reset() {
+        sum = initialNumber
+        document.getElementById("result").innerHTML = initialNumber
+    }
+
+    function getValueStepInput() {
+        return document.getElementById("step").value
+    }
+
+    function display(numberDisplay) {
+        document.getElementById("result").innerHTML = numberDisplay;
+    }
+
+    function countUp() {
+        console.log("countUp click !!!!");
+        value = getValueStepInput()
+        sum = sum + parseInt(value);
+        displayError(sum);
+    }
+
+    function countDown() {
+        console.log("countDown click !!!!");
+        value = getValueStepInput()
+        sum = sum - parseInt(value);
+        displayError(sum)
+    }
+
+    function displayError(sum) {
+        // checkDisabled()
+        if (sum < 0) {
+            document.getElementById("result").innerHTML = "Please Reset Number";
+        } else {
+            document.getElementById("result").innerHTML = sum;
         }
+    }
 
-    </script>
+</script>
+
 </html>
