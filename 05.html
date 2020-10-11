@@ -1,0 +1,24 @@
+<html>
+
+<head>
+    <title>05 file html</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        var fruit = ["banana", "apple", "grape", "pineapple"]
+        // 0: banana, 1:apple, 2:grape, 3: pineapple
+        fruit.push("A") //  เพิ่มค่า A ใน array fruit
+        console.log("length : " + fruit.length)
+        for (let i = 0; i < fruit.length; i++) {
+            if (i == 1) {
+                fruit[i] = "X"
+            }
+            console.log("fruit : " + fruit[i])
+        }
+        console.log("NOW fruit : " + fruit)
+
+    </script>
+</body>
+
+</html>

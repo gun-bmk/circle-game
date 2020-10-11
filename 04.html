@@ -1,0 +1,25 @@
+<html>
+
+<head>
+    <title>04 file html</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // start ; check ; end
+        max_length = 3
+        for (var i = 0; i < max_length; i++) {
+            let result = ""
+            for (var j = 0; j < max_length ; j++) {
+                if(j == i || (i + j) == max_length - 1){
+                    result = result + "*"
+                }else{
+                    result = result + " "
+                }
+            }
+            console.log(result)
+        }
+    </script>
+</body>
+
+</html>

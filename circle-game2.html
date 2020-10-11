@@ -80,7 +80,9 @@
 
         grow() {
             if (this.size >= this.max_size) {
+
                 this.endGame();
+
             } else {
                 this.size = this.size + this.step;
                 console.log("size UP>> ", this.size);
