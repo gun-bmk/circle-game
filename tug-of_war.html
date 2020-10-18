@@ -1,0 +1,126 @@
+<html>
+
+<head>
+    <title>Circle-game1 !!!</title>
+</head>
+
+<body onkeyup="keyDown(event)">
+    <canvas id="paper" width="500" height="500" style="border: 1px solid #000000;"></canvas>
+</body>
+<script type="text/javascript">
+
+    var canvas = document.getElementById("paper");
+    var counter = 0
+    var game = { max_size: 200, center_x: 250, center_y: 250, size: 20, step: 5, is_end: false, rect: { x: 200, y: 400, width: 100, height: 50 }, time: 0, statusWin: '' };
+    var interval = setInterval(() => {
+        window.requestAnimationFrame(draw);
+        formatTime(counter += 0.5)
+        window.requestAnimationFrame(drawTime);
+    }, 50)
+    let keyDown = (event) => {
+        if (event.keyCode == 90) {
+            playerOneAction();
+        } else if (event.keyCode == 191) {
+            playerTwoAction();
+        }
+    }
+
+    let playerOneAction = () => {
+        if (game.center_x > 0 && !game.is_end) {
+            game.center_x -= game.step * 10;
+        } else if (game.center_x <= 0) {
+            game.statusWin = 'one'
+            endGame()
+        }
+    }
+
+    let playerTwoAction = () => {
+        if (game.center_x < canvas.width && !game.is_end) {
+            game.center_x += game.step * 10;
+        } else if (game.center_x >= canvas.width) {
+            game.statusWin = 'two'
+            endGame()
+        }
+    }
+
+    let draw = () => {
+        var ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.arc(game.center_x, game.center_y, game.size, 0, 2 * Math.PI, false);
+        ctx.fillStyle = "green";
+        ctx.fill();
+    }
+
+    let drawTextWinner = () => {
+        var wintxt = canvas.getContext("2d");
+        wintxt.font = '20pt Kremlin Pro Web';
+        wintxt.fillStyle = '#000000';
+        if (game.statusWin == 'one')
+            wintxt.fillText(`Player One WIN!!!`, 100, 250);
+        else if (game.statusWin == 'two')
+            wintxt.fillText(`Player Two WIN!!!`, 100, 250);
+
+    }
+    let drawTime = () => {
+        var text = canvas.getContext("2d");
+        text.font = '20pt Kremlin Pro Web';
+        text.fillStyle = '#000000';
+        text.fillText(`${game.time}`, 240, 50);
+    }
+
+    let formatTime = (time) => {
+        if (time % 10 == 0) {
+            game.time++
+        }
+    }
+    let drawButtonRestart = () => {
+        var rect = canvas.getContext("2d");
+        rect.beginPath();
+        rect.rect(game.rect.x, game.rect.y, game.rect.width, game.rect.height);
+        rect.fillStyle = '#FFFFFF';
+        rect.fillStyle = 'rgba(225,225,225,0.5)';
+        rect.fill();
+        rect.lineWidth = 2;
+        rect.strokeStyle = '#000000';
+        rect.stroke();
+        rect.font = '20pt Kremlin Pro Web';
+        rect.fillStyle = '#000000';
+        rect.fillText('Restart', 212, 432);
+    }
+
+    let endGame = () => {
+        game.is_end = true;
+        clearInterval(interval)
+        drawButtonRestart()
+        drawTextWinner()
+    }
+
+
+
+    let reset = () => {
+        game.center_x = 250
+        game.is_end = false
+        game.time = 0
+        game.statusWin = ''
+        interval = setInterval(() => {
+            window.requestAnimationFrame(draw);
+            formatTime(counter += 0.5)
+            window.requestAnimationFrame(drawTime);
+        }, 50)
+    }
+
+    canvas.addEventListener('click', function (event) {
+        if (
+            game.is_end &&
+            event.x > game.rect.x &&
+            event.x < game.rect.x + game.rect.width &&
+            event.y > game.rect.y &&
+            event.y < game.rect.y + game.rect.height
+        ) {
+            reset()
+        }
+    });
+</script>
+
+</html>
